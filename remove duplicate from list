@@ -1,0 +1,26 @@
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) {
+            return head; // Return if list is empty or has only one element
+        }
+
+        ListNode dummy = new ListNode(0); // Dummy node to handle edge cases
+        dummy.next = head;
+        ListNode prev = dummy; // Pointer to track the previous distinct node
+
+        while (head != null) {
+            // If the current node has duplicates, skip all of them
+            if (head.next != null && head.val == head.next.val) {
+                while (head.next != null && head.val == head.next.val) {
+                    head = head.next; // Skip duplicate nodes
+                }
+                prev.next = head.next; // Remove all duplicates
+            } else {
+                prev = prev.next; // Move prev pointer forward
+            }
+            head = head.next; // Move head pointer forward
+        }
+
+        return dummy.next; // Return the modified list
+    }
+}
